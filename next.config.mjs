@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { env } from "./src/env.mjs";
+import {env} from "./src/env.mjs";
 import nextPWA from "next-pwa";
 
 /**
@@ -42,7 +42,7 @@ const config = {
         hostname: `${env.MY_AWS_BUCKET_NAME}.s3.amazonaws.com`,
       },
       {
-        hostname: "dba8sid543nft.cloudfront.net",
+        hostname: "gen-image-test-9xa.s3.amazonaws.com",
       },
       {
         hostname: "img.clerk.com",

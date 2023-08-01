@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand, type PutObjectCommandOutput, DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, PutObjectCommand, type PutObjectCommandOutput, S3Client } from "@aws-sdk/client-s3";
 import { env } from "~/env.mjs";
 import { nanoid } from 'nanoid';
 
@@ -71,7 +71,7 @@ export namespace FileHandler {
     }
 
     export function getImageUrl(key: string) {
-        return `https://dba8sid543nft.cloudfront.net/${key}`
+        return `https://gen-image-test-9xa.s3.amazonaws.com/${key}`
     }
 }
 
