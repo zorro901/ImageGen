@@ -16,6 +16,7 @@
     "sst:run": "npx dotenv -e .env -v SKIP_ENV_VALIDATION=true -- sst bind next dev",
     "sst:dev": "npx dotenv -e .env -v SKIP_ENV_VALIDATION=true -- npx sst dev",
     "sst:deploy": "npx dotenv -e .env -v SKIP_ENV_VALIDATION=true -- npx sst deploy --stage prod",
+    "sst:deploy:ci": "npx dotenv -v SKIP_ENV_VALIDATION=true -- npx sst deploy --stage prod",
     "sst:remove": "npx dotenv -e .env -v SKIP_ENV_VALIDATION=true -- npx sst remove",
     "typecheck": "npx tsc --noEmit"
   },
