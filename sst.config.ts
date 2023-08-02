@@ -1,6 +1,7 @@
 import { type SSTConfig } from "sst";
 import { NextjsSite } from "sst/constructs";
 import { env } from "~/env.mjs";
+import * as acm from "aws-cdk-lib/aws-certificatemanager";
 
 export default {
   config(_input) {
@@ -11,10 +12,23 @@ export default {
   },
   stacks(app) {
     app.stack(function Site({ stack }) {
+      const certificate = acm.Certificate.fromCertificateArn(
+        stack,
+        "Certificate",
+        process.env.AWS_CERTIFICATE_ARN ?? ""
+      );
       const site = new NextjsSite(stack, "ImageGenSite", {
-        timeout: '1 minute',
+        timeout: "1 minute",
         environment: {
-          ...env
+          ...env,
+        },
+        customDomain: {
+          isExternalDomain: true,
+          domainName: "www.robavo.net",
+          alternateNames: ["robavo.net"],
+          cdk: {
+            certificate,
+          },
         },
       });
 
@@ -24,7 +38,7 @@ export default {
     });
 
     app.setDefaultFunctionProps({
-      logRetention: 'one_week',
-    })
+      logRetention: "one_week",
+    });
   },
 } satisfies SSTConfig;
