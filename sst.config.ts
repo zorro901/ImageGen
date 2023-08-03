@@ -1,7 +1,11 @@
 import { type SSTConfig } from "sst";
 import { NextjsSite } from "sst/constructs";
 import { env } from "~/env.mjs";
-import * as acm from "aws-cdk-lib/aws-certificatemanager";
+import {
+  aws_certificatemanager as acm,
+  aws_route53 as route53,
+  aws_route53_targets as route53Targets,
+} from "aws-cdk-lib";
 
 export default {
   config(_input) {
@@ -31,6 +35,18 @@ export default {
           },
         },
       });
+
+      if (site.cdk && site.cdk.hostedZone) {
+        const recordProps = {
+          recordName: "robavo.net",
+          zone: site.cdk.hostedZone,
+          target: route53.RecordTarget.fromAlias(
+            new route53Targets.CloudFrontTarget(site.cdk.distribution)
+          ),
+        };
+        new route53.ARecord(stack, "AlternateARecord", recordProps);
+        new route53.AaaaRecord(stack, "AlternateAAAARecord", recordProps);
+      }
 
       stack.addOutputs({
         SiteUrl: site.url,
