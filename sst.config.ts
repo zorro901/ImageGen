@@ -6,6 +6,7 @@ import {
   aws_route53 as route53,
   aws_route53_targets as route53Targets,
 } from "aws-cdk-lib";
+import { type ICertificate } from "aws-cdk-lib/aws-certificatemanager";
 
 export default {
   config(_input) {
@@ -16,10 +17,10 @@ export default {
   },
   stacks(app) {
     app.stack(function Site({ stack }) {
-      const certificate = acm.Certificate.fromCertificateArn(
+      const certificate: ICertificate = acm.Certificate.fromCertificateArn(
         stack,
         "Certificate",
-        process.env.AWS_CERTIFICATE_ARN ?? ""
+        process.env.AWS_CERTIFICATE_ARN ?? "",
       );
       const site = new NextjsSite(stack, "ImageGenSite", {
         timeout: "1 minute",
@@ -41,7 +42,7 @@ export default {
           recordName: "robavo.net",
           zone: site.cdk.hostedZone,
           target: route53.RecordTarget.fromAlias(
-            new route53Targets.CloudFrontTarget(site.cdk.distribution)
+            new route53Targets.CloudFrontTarget(site.cdk.distribution),
           ),
         };
         new route53.ARecord(stack, "AlternateARecord", recordProps);

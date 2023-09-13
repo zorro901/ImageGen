@@ -27,7 +27,7 @@ export const env = createEnv({
 
     // Clerk
     CLERK_SECRET_KEY: z.string(),
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
+    CLERK_PUBLISHABLE_KEY: z.string(),
   },
 
   /**
@@ -57,6 +57,7 @@ export const env = createEnv({
     MY_AWS_SECRET_KEY: process.env.MY_AWS_SECRET_KEY,
     MY_AWS_BUCKET_NAME: process.env.MY_AWS_BUCKET_NAME,
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+    CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
     NEXT_PUBLIC_CLERK_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL,
