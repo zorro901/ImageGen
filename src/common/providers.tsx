@@ -1,15 +1,15 @@
+"use client";
+
 import "~/styles/globals.css";
-import { type AppType } from "next/app";
-import { api } from "~/utils/api";
 import Layout from "~/layout/Layout";
-import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "react-hot-toast";
 import { DefaultSeo } from "next-seo";
+import { api } from "~/utils/api";
 
 // This should be more dynamic
-const SITE_URL = "https://du8ecttu3enax.cloudfront.net";
+const SITE_URL = "https://robavo.net";
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <DefaultSeo
@@ -47,15 +47,10 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           },
         ]}
       />
-
-      <ClerkProvider {...pageProps}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-        <Toaster />
-      </ClerkProvider>
+      <Layout>{children}</Layout>
+      <Toaster />
     </>
   );
 };
 
-export default api.withTRPC(MyApp);
+export default api.withTRPC(Providers);

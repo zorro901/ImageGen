@@ -1,8 +1,10 @@
+"use client";
+
 import { SignOutButton, useAuth, useUser } from "@clerk/nextjs";
 import { type UserResource } from "@clerk/types";
 import { Lato } from "next/font/google";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { BiImage } from "react-icons/bi";
 import DarkModeToggle from "~/components/DarkModeToggle";
 import { ForEachCharacter } from "~/components/ForEachCharacter";
@@ -24,13 +26,14 @@ const font = Lato({
   subsets: ["latin"],
 });
 
-export default function Header() {
+// export default function Header() {
+function Header() {
   const router = useRouter();
   const { isLoaded, isSignedIn, user } = useUser();
 
   return (
     <header
-      className="flex flex-row justify-between border-b border-gray-300/50 
+      className="flex flex-row justify-between border-b border-gray-300/50
     px-4 py-4 text-purple-600 shadow-md dark:border-b-violet-700"
     >
       <Link href="/" className="flex flex-row items-center">
@@ -76,14 +79,14 @@ function UserAvatar({ user }: UserAvatarProps) {
   const { isSignedIn } = useUser();
   const fallbackImg = useMemo(
     () => `https://placehold.co/64x64/9333ea/FFF?text=${name.slice(0, 2)}`,
-    [name]
+    [name],
   );
 
   const userTokensQuery = api.users.getTokenCount.useQuery();
   const tokenCount = userTokensQuery.data?.tokenCount;
   const nextRegeneration = userTokensQuery.data?.nextRegeneration;
   const num = useNumber(
-    typeof tokenCount === "number" && showCount ? tokenCount : 0
+    typeof tokenCount === "number" && showCount ? tokenCount : 0,
   );
 
   return (
@@ -117,7 +120,7 @@ function UserAvatar({ user }: UserAvatarProps) {
                 initial={{ opacity: 0, translateX: -60 }}
                 animate={{ opacity: 1, translateX: 0 }}
                 exit={{ opacity: 0, translateX: -60 }}
-                className="absolute right-14 top-14 z-40 flex flex-col gap-2 overflow-hidden rounded-lg border border-gray-200 
+                className="absolute right-14 top-14 z-40 flex flex-col gap-2 overflow-hidden rounded-lg border border-gray-200
          bg-white p-1 text-xs shadow-md dark:border-violet-900/50 dark:bg-slate-900 dark:shadow-sm dark:shadow-violet-400/10"
               >
                 {userTokensQuery.isLoading && (
@@ -154,7 +157,7 @@ function UserAvatar({ user }: UserAvatarProps) {
                           <MdCalendarToday className="text-xl" />
                           <span className="font-medium">
                             <>{`Recharge ${dayjs(nextRegeneration).format(
-                              "L"
+                              "L",
                             )}`}</>
                           </span>
                         </Menu.Item>
@@ -166,8 +169,8 @@ function UserAvatar({ user }: UserAvatarProps) {
                         className="flex cursor-pointer flex-row items-center gap-2 rounded-lg px-5 py-2 hover:bg-violet-500 hover:text-white sm:hidden"
                         onClick={(e) => {
                           e.preventDefault();
-                          void signOut(async () => {
-                            await router.push("/");
+                          void signOut(() => {
+                            router.push("/");
                           });
                         }}
                       >
@@ -185,3 +188,4 @@ function UserAvatar({ user }: UserAvatarProps) {
     </Menu>
   );
 }
+export default api.withTRPC(Header);

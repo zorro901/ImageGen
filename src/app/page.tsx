@@ -1,13 +1,16 @@
+"use client";
+
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { BsHeart } from "react-icons/bs";
 import { AnimatedPage } from "~/components/AnimatedPage";
+import { api } from "~/utils/api";
 
 const BLUR_HASH =
   "data:image/webp;base64,UklGRm4DAABXRUJQVlA4WAoAAAAgAAAAgQAAgQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgggAEAADANAJ0BKoIAggA+7XCvUjOyKaKllJwqcB2JZW7f/Nx9dvitL63rAD2t3vF6uwiTGVPk+9Tj5dYNRNS6Zsgy8lKLPYFQ2QZRaJDe686rkCva48la5NbhkcmYP9ytWDhgwdUaTDFp/+ZNVoRexMPJ1iw6AAD+5/etS3Pa3fl/ZfGEEtLnKiH8RCD1Q8sPzE0ksTvO2NR5Rs44oUNpoedrNNw3fMrd3hHOiei0Pj3rA3Op/iQISphiOx2U7UPwyflwLoIcL9nHSFwut2PuipMPxUk6qT7/SY1GslCx/F7VSKJyyvon0B4tLg6W2rIWxQwO5Vtvur+EGdiB5JzCRLZdFl77SmzDfEzaSgXw0/GEI/4BuSDLj1o29GPb8yE/W8w0oiinAqW/oFW9g+lmZWdyoWIKrl0IvmjufMBHuEZg6ZTckwtcChBH5VR4aSk5/OYOzCgXmVbcXnwd0MrUeO/gyYkcUaF6yK7I4YQHptXJ2xMrbAZtrnAB1pAPpWTPLAAAAA==";
 
-export default function HomePage() {
+function HomePage() {
   const { isSignedIn } = useUser();
 
   return (
@@ -45,7 +48,7 @@ export default function HomePage() {
               >
                 <button
                   className=" flex flex-row items-center justify-between gap-3 rounded-lg bg-gradient-to-tr from-violet-500
-            to-violet-700 px-10 py-3 text-center text-white            
+            to-violet-700 px-10 py-3 text-center text-white
            shadow-lg  transition  duration-200 hover:from-violet-700
            hover:to-violet-500 hover:ring-4 hover:ring-purple-300 active:scale-95 active:from-violet-600 active:to-violet-600"
                 >
@@ -60,3 +63,4 @@ export default function HomePage() {
     </>
   );
 }
+export default api.withTRPC(HomePage);

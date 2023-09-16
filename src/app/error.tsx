@@ -1,3 +1,5 @@
+"use client"; // Error components must be Client Components
+
 import { STATUS_CODES } from "http";
 import { type NextPageContext } from "next";
 import { ForEachCharacter } from "~/components/ForEachCharacter";
@@ -12,8 +14,8 @@ export default function ErrorPage({ statusCode, message }: ErrorPageProps) {
     message || STATUS_CODES[statusCode] || "Something went wrong";
   return (
     <div
-      className="flex h-[60vh] w-full cursor-pointer flex-row items-center justify-center gap-3 
-    p-4 font-mono text-xl md:text-3xl text-violet-500"
+      className="flex h-[60vh] w-full cursor-pointer flex-row items-center justify-center gap-3
+    p-4 font-mono text-xl text-violet-500 md:text-3xl"
     >
       <span>
         <ForEachCharacter

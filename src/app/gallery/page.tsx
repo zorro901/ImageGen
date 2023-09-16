@@ -1,3 +1,5 @@
+"use client";
+
 import GenerateImageSearchBar from "~/components/GenerateImageSearchBar";
 import {
   useIsGeneratingImage,
@@ -20,16 +22,15 @@ import { FallingLines } from "react-loader-spinner";
 import ScrollToTop from "~/components/ScrollToTop";
 import { useGeneratingImagesCount } from "~/atoms/generatingImageAtom";
 import { drawImageAsBase64 } from "~/utils/drawImageAsBase64";
-import ScrollRestoration from "~/components/ScrollRestoration";
 import Image from "next/image";
 import { NextSeo } from "next-seo";
 
 // This is for make SST detect this route as dynamic
-export const getServerSideProps = () => {
-  return Promise.resolve({ props: {} });
-};
+// export const getServerSideProps = () => {
+//   return Promise.resolve({ props: {} });
+// };
 
-export default function GalleryPage() {
+function GalleryPage() {
   const setRandomSearchTerm = useSetRandomPrompt();
   const generatingImageCount = useGeneratingImagesCount();
   const isGenerateImageLoading = useIsGeneratingImage();
@@ -54,7 +55,7 @@ export default function GalleryPage() {
       getNextPageParam(lastPage) {
         return lastPage.nextCursor;
       },
-    }
+    },
   );
 
   const isEmpty = useMemo(() => {
@@ -79,7 +80,7 @@ export default function GalleryPage() {
 
   const placeholderArray = useMemo(
     () => Array.from(Array(generatingImageCount).keys()),
-    [generatingImageCount]
+    [generatingImageCount],
   );
 
   return (
@@ -116,7 +117,7 @@ export default function GalleryPage() {
               onClick={() => {
                 setRandomSearchTerm();
               }}
-              className="mt-20 flex w-full cursor-pointer select-none flex-row justify-center p-4 
+              className="mt-20 flex w-full cursor-pointer select-none flex-row justify-center p-4
                 text-xl text-violet-300 transition duration-200 hover:text-violet-400 sm:text-2xl md:text-4xl"
             >
               No Images found, generate one?
@@ -169,9 +170,6 @@ export default function GalleryPage() {
             </div>
           )}
         </div>
-
-        {/* Prevent scroll to on url change */}
-        <ScrollRestoration />
 
         {/* Scroll to top button */}
         <div className="fixed bottom-5 right-5 z-10">
@@ -302,3 +300,4 @@ function ImageLoading() {
     </div>
   );
 }
+export default api.withTRPC(GalleryPage);

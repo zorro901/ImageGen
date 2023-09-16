@@ -1,3 +1,5 @@
+"use client";
+
 import { SignUp, useUser } from "@clerk/nextjs";
 import { ThreeDots } from "react-loader-spinner";
 import Redirect from "~/components/Redirect";
