@@ -53,4 +53,4 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default api.withTRPC(Providers);
+export default Providers;
