@@ -4,7 +4,6 @@ import "~/styles/globals.css";
 import Layout from "~/layout/Layout";
 import { Toaster } from "react-hot-toast";
 import { DefaultSeo } from "next-seo";
-import { api } from "~/utils/api";
 
 // This should be more dynamic
 const SITE_URL = "https://robavo.net";
